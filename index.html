@@ -7,6 +7,34 @@
 		<link rel="shortcut icon" href="TemplateData/favicon.ico">
 	</head>
 	<body>
+		<p id="controls"></p>
+		<script>
+			let url = new URL(document.location.href);
+			let isPreview = !url.searchParams.get("assignmentId");
+			let skippedTutorial = !!url.searchParams.get("skipTutorial");
+			var RuleVariant = url.searchParams.get("rules") || "LocalSampling";
+
+			function makeButton(condition, trueText, falseText, key, value)
+			{
+				let button = document.createElement("button");
+				button.innerHTML = condition ? trueText : falseText;
+				button.addEventListener("click", function() {
+					if (condition) url.searchParams.set(key, value);
+					else url.searchParams.delete(key);
+					document.location.href = url.toString();
+				});
+				return button;
+			}
+
+			let controls = document.getElementById("controls");
+			controls.appendChild(makeButton(isPreview, "Accept HIT", "Go to Preview", "assignmentId", "a_very_real_id"));
+			controls.appendChild(makeButton(!skippedTutorial, "Skip Tutorial", "Go To Tutorial", "skipTutorial", "yep"));
+			let ruleP = document.createElement("p");
+			ruleP.innerHTML = "Rules: " + RuleVariant;
+			controls.appendChild(ruleP)
+			controls.appendChild(makeButton(true, "Local Sampling", "", "rules", "LocalSampling"));
+			controls.appendChild(makeButton(true, "Remote Sensing", "", "rules", "RemoteSensing"));
+		</script>
 		<link rel="stylesheet" href="TemplateData/style.css" type="text/css">
 		<script src="TemplateData/UnityProgress.js"></script>
 		<script src="Build/UnityLoader.js"></script>
@@ -22,8 +50,7 @@
 			</div>
 		</div>
 		<textarea rows="5" cols="80" name="Log" id="logField" required hidden></textarea>
-		<input type="checkbox" name="Completed" id="completed" required hidden>
 		<p id="progress"></p>
-		<button type="button" id="submitButton" hidden>Submit</button>
+		<button type="button" id="submitButton" onclick="alert(document.getElementById('logField').value)">Submit</button>
 	</body>
 </html>
