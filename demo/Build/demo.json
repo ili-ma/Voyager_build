@@ -1,6 +1,6 @@
 {
 "companyName": "DefaultCompany",
-"productName": "Voyager",
+"productName": "Voyager Demo",
 "productVersion": "0.1",
 "dataUrl": "demo.data.unityweb",
 "wasmCodeUrl": "demo.wasm.code.unityweb",
