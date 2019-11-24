@@ -35,22 +35,30 @@
 			controls.appendChild(makeButton(true, "Local Sampling", "", "rules", "LocalSampling"));
 			controls.appendChild(makeButton(true, "Remote Sensing", "", "rules", "RemoteSensing"));
 		</script>
+
+		<!-- mTurk section starts here. Don't forget to replace relative locations with absolute ones! -->
 		<link rel="stylesheet" href="TemplateData/style.css" type="text/css">
 		<script src="TemplateData/UnityProgress.js"></script>
 		<script src="Build/UnityLoader.js"></script>
 		<script>
 			var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Voyager_build.json", {onProgress: UnityProgress});
 		</script>
+		<!-- Uncomment on mTurk
+		<script>
+			var RuleVariant = ${RuleVariant};
+		</script>
+		-->
 		<div class="webgl-content">
 			<div id="unityContainer" style="width: 960px; height: 600px"></div>
 			<div class="footer">
-				<div class="webgl-logo"></div>
 				<div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
-				<div class="title">Voyager</div>
+				<div class="title">Make Fullscreen</div>
 			</div>
 		</div>
 		<textarea rows="5" cols="80" name="Log" id="logField" required hidden></textarea>
 		<p id="progress"></p>
+		<!-- mTurk section ends here -->
+
 		<button type="button" id="submitButton" onclick="alert(document.getElementById('logField').value)">Submit</button>
 	</body>
 </html>
