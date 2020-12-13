@@ -14,6 +14,7 @@
 			let isPreview = !url.searchParams.get("assignmentId");
 			let skippedTutorial = !!url.searchParams.get("skipTutorial");
 			let debug = !!url.searchParams.get("debug");
+			let multigoal = !!url.searchParams.get("multigoal");
 			var RuleVariant = url.searchParams.get("rules") || "LocalSampling";
 
 			function makeButton(condition, trueText, falseText, key, value)
@@ -32,11 +33,13 @@
 			controls.appendChild(makeButton(isPreview, "Accept HIT", "Go to Preview", "assignmentId", "a_very_real_id"));
 			controls.appendChild(makeButton(!skippedTutorial, "Skip Tutorial", "Go To Tutorial", "skipTutorial", "yep"));
 			controls.appendChild(makeButton(!debug, "Enable debug", "Disable debug", "debug", "yep"));
+			controls.appendChild(makeButton(!multigoal, "Multi Goals", "Single Goal", "multigoal", "yep"));
 			let ruleP = document.createElement("p");
 			ruleP.innerHTML = "Rules: " + RuleVariant;
 			controls.appendChild(ruleP)
 			controls.appendChild(makeButton(true, "Local Sampling", "", "rules", "LocalSampling"));
 			controls.appendChild(makeButton(true, "Remote Sensing", "", "rules", "RemoteSensing"));
+			controls.appendChild(makeButton(true, "Multi Agent", "", "rules", "MultiAgent"));
 			controls.appendChild(makeButton(true, "Two Stage", "", "rules", "TwoStage"));
 			controls.appendChild(makeButton(true, "Appraisal", "", "rules", "Appraisal"));
 		}
