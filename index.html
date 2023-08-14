@@ -44,6 +44,7 @@
 			controls.appendChild(makeButton(true, "Appraisal", "", "rules", "Appraisal"));
 			controls.appendChild(makeButton(true, "Realtime Assist", "", "rules", "RealtimeAssisting"));
 			controls.appendChild(makeButton(true, "Turn Based Assist", "", "rules", "TurnBasedAssisting"));
+			controls.appendChild(makeButton(true, "Goal Puzzle", "", "rules", "GoalPuzzle"));
 		}
 		</script>
 		<p>
@@ -52,11 +53,9 @@
 
 		<!-- mTurk section starts here. Don't forget to replace relative locations with absolute ones! -->
 		<link rel="stylesheet" href="TemplateData/style.css" type="text/css">
-		<script src="TemplateData/UnityProgress.js"></script>
-		<script src="Build/UnityLoader.js"></script>
+		<script src="Build/Voyager_build.loader.js"></script>
 		<script>
 			var RuleVariant = RuleVariant || "${RuleVariant}";
-			var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Voyager_build.json", {onProgress: UnityProgress});
 		</script>
 		<div id="consent-form">
 			<h1>CONSENT FORM FOR ONLINE AMAZON MECHANICAL TURK PARTICIPANTS (IRB-FY2016-231)</h1>
@@ -107,7 +106,20 @@
 			<button type="button" id="agreeButton" onclick="idShow('consent-form', false); idShow('webgl-content', true);">Click to agree</button></p>
 		</div>
 		<div id="webgl-content">
-			<div id="unityContainer" style="width: 960px; height: 600px"></div>
+			<canvas id="unity-canvas" width=960 height=600 tabindex="-1" style="width: 960px; height: 600px; background: #231F20"></canvas>
+			<script>
+				createUnityInstance(document.querySelector("#unity-canvas"), {
+					dataUrl: "Build/Voyager_build.data.unityweb",
+					frameworkUrl: "Build/Voyager_build.framework.js.unityweb",
+					codeUrl: "Build/Voyager_build.wasm.unityweb",
+					streamingAssetsUrl: "StreamingAssets",
+					companyName: "DefaultCompany",
+					productName: "Voyager",
+					productVersion: "0.1",
+					// matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+					// devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+				});
+			</script>
 			<div class="footer">
 				<p id="progress"></p>
 				<!--<div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
